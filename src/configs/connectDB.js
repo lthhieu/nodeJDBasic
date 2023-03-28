@@ -1,17 +1,9 @@
 // get the client
-const mysql = require('mysql2');
+const mysql = require('mysql2/promise');
 
-// create the connection to database
-export const connection = mysql.createConnection({
+// Create the connection pool. The pool-specific settings are the defaults
+export const pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     database: 'nodeJSBasic'
-});
-
-connection.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL: ', err);
-        return;
-    }
-    console.log('Connected to MySQL database successfully!');
 });
