@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NodeJS</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+</head>
+
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Trang chủ</a>
+        <a href="/upload-files">Tải tập tin</a>
+    </div>
+
+    <div style="padding-left:16px; padding-right:16px">
+        <h2>Cập nhật thông tin người dùng</h2>
+        <form action="/post-update-user" method="post">
+            <input hidden value="<%=id%>" type="text" name="id">
+            <label for="fName">Họ:</label><br>
+            <input value="<%=fName%>" type="text" name="fName"><br>
+            <label for="lName">Tên:</label><br>
+            <input value="<%=lName%>" type="text" name="lName"><br>
+            <label for="email">Email:</label><br>
+            <input value="<%=email%>" type="email" name="email"><br>
+            <label for="address">Địa chỉ:</label><br>
+            <input value="<%=address%>" type="text" name="address"><br><br>
+            <button type="submit">Cập nhật</button>
+        </form>
+    </div>
+</body>
+
+</html>

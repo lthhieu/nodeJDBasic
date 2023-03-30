@@ -11,10 +11,8 @@
 
 <body>
     <div class="topnav">
-        <a class="active" href="#home">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
+        <a class="active" href="/">Trang chủ</a>
+        <a href="/upload-files">Tải tập tin</a>
     </div>
 
     <div style="padding-left:16px; padding-right:16px">
@@ -25,7 +23,7 @@
                     <th>STT</th>
                     <th>Họ</th>
                     <th>Tên</th>
-                    <th><button>Thêm mới</button></th>
+                    <th>Tác vụ</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,16 +39,33 @@
                             <td>
                                 <%= item.lName %>
                             </td>
-                            <td>
-                                <button><a href="/detail/user/<%=item.id%>" target="_blank">Chi tiết</a></button>
-                                <button>Sửa</button>
-                                <button>Xóa</button>
+                            <td class="tac-vu">
+                                <button><a href="/detail-user/<%=item.id%>" target="_blank">Chi tiết</a></button>
+                                <button><a href="/update-user/<%=item.id%>">Sửa</a></button>
+                                <form action="/delete-user/" method="post">
+                                    <input hidden value="<%=item.id%>" name="id" />
+                                    <button type="submit">Xóa</button>
+                                </form>
                             </td>
                         </tr>
                         <% counter++ %>
                             <% }); %>
             </tbody>
         </table>
+        <div>
+            <h2>Thêm mới người dùng</h2>
+            <form action="/create-new-user" method="post">
+                <label for="fName">Họ:</label><br>
+                <input type="text" name="fName"><br>
+                <label for="lName">Tên:</label><br>
+                <input type="text" name="lName"><br>
+                <label for="email">Email:</label><br>
+                <input type="email" name="email"><br>
+                <label for="address">Địa chỉ:</label><br>
+                <input type="text" name="address"><br><br>
+                <button type="submit">Thêm</button>
+            </form>
+        </div>
     </div>
 </body>
 

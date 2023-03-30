@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NodeJS</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="/">Trang chủ</a>
+        <a class="active" href="/upload-files">Tải tập tin</a>
+    </div>
+
+    <div style="padding-left:16px; padding-right:16px">
+        <h2>Tải 1 tập tin</h2>
+        <form action="/post-file" method="post" enctype="multipart/form-data">
+            <label for="file">Chọn tệp:</label><br>
+            <input type="file" name="img"><br><br>
+            <button type="submit">Tải</button>
+        </form>
+        <hr>
+        <h2>Tải nhiều tập tin</h2>
+        <form action="/post-files" method="post" enctype="multipart/form-data">
+            <label for="files">Chọn tệp:</label><br>
+            <input type="file" name="files"><br><br>
+            <button type="submit">Tải</button>
+        </form>
+    </div>
+</body>
+
+</html>
