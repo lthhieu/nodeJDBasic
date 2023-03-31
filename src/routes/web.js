@@ -16,13 +16,14 @@ const storage = multer.diskStorage({
 });
 const imageFilter = function (req, file, cb) {
     // Accept images only
-    if (!file.originalname.match(/\.(png|PNG)$/)) {
+    if (!file.originalname.match(/\.(jpg|JPG|jpeg|JPEG|png|PNG|gif|GIF)$/)) {
         req.fileValidationError = 'Chỉ ảnh png thôi';
         return cb(new Error('Chỉ ảnh png thôi!'), false);
     }
     cb(null, true);
 };
-let upload = multer({ storage: storage, fileFilter: imageFilter });
+let uploadFile = multer({ storage: storage, fileFilter: imageFilter }).single('img');
+let uploadFiles = multer({ storage: storage, fileFilter: imageFilter }).array('files', 2);
 
 export const initWebRoute = (app) => {
     router.get('/', controllers.homepage);
@@ -32,6 +33,30 @@ export const initWebRoute = (app) => {
     router.get('/update-user/:id', controllers.updateUser);
     router.post('/post-update-user', controllers.postUpdateUser);
     router.get('/upload-files', controllers.uploadFiles);
-    router.post('/post-file', upload.single('img'), controllers.postFile);
+    router.post('/post-file', (req, res, next) => {
+        uploadFile(req, res, (err) => {
+            if (req.fileValidationError) {
+                return res.send('Chọn ảnh thôi!');
+            }
+            else if (!req.file) {
+                return res.send('Chọn ảnh đi!');
+            }
+            else { next(); }
+        });
+    }, controllers.postFile);
+    router.post('/post-files', (req, res, next) => {
+        uploadFiles(req, res, (err) => {
+            if (req.fileValidationError) {
+                return res.send('Chọn hình thôi!');
+            }
+            else if (err instanceof multer.MulterError && err.code === "LIMIT_UNEXPECTED_FILE") {
+                return res.send('Tải tối đa 2 file thôi!');
+            }
+            else if (!req.files || !req.file) {
+                return res.send('Chọn ảnh đi!');
+            }
+            else { next(); }
+        });
+    }, controllers.postFiles);
     return app.use('/', router);
 }
